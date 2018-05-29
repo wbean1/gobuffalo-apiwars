@@ -1,15 +1,17 @@
 package actions
 
 import (
+        "fmt"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/ssl"
 	"github.com/gobuffalo/envy"
 	"github.com/unrolled/secure"
 
-	"github.com/gobuffalo/x/sessions"
 	"github.com/rs/cors"
 	"github.com/wbean1/apiwars/models"
+
+	"github.com/markbates/goth/gothic"
 )
 
 // ENV is used to help switch settings based on where the
@@ -23,8 +25,7 @@ var app *buffalo.App
 func App() *buffalo.App {
 	if app == nil {
 		app = buffalo.New(buffalo.Options{
-			Env:          ENV,
-			SessionStore: sessions.Null{},
+			Env: ENV,
 			PreWares: []buffalo.PreWare{
 				cors.Default().Handler,
 			},
@@ -50,7 +51,26 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 
+		app.Use(SetCurrentUser)
+		app.Use(Authorize)
+		app.Middleware.Skip(Authorize, HomeHandler)
+
+		auth := app.Group("/auth")
+		bah := buffalo.WrapHandlerFunc(gothic.BeginAuthHandler)
+		auth.GET("/{provider}", bah)
+		auth.GET("/{provider}/callback", AuthCallback)
+		auth.DELETE("", AuthDestroy)
+		auth.Middleware.Skip(Authorize, bah, AuthCallback)
+
+                app.GET("/protected", Protect)
+
 	}
 
 	return app
+}
+
+func Protect (c buffalo.Context) error {
+        m := fmt.Sprintf("super secret info here, userid: %s", c.Value("current_user"))
+        return c.Render(200, r.JSON(map[string]string{"message": m}))
+
 }
