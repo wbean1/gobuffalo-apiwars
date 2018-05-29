@@ -7,7 +7,7 @@ development:
   password: "root"
 
 test:
-  url: {{envOr "TEST_DATABASE_URL" "mysql://root:root@(localhost:3306)/apiwars_test?parseTime=true&multiStatements=true&readTimeout=1s"}}
+  url: {{envOr "TEST_DATABASE_URL" "mysql://root@/apiwars_test?parseTime=true&multiStatements=true&readTimeout=1s"}}
 
 production:
-  url: {{envOr "DATABASE_URL" "mysql://root:root@(localhost:3306)/apiwars_production?parseTime=true&multiStatements=true&readTimeout=1s"}}
+  url: {{envOr "DATABASE_URL" "mysql://root@/apiwars_production?parseTime=true&multiStatements=true&readTimeout=1s"}}

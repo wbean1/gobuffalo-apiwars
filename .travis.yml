@@ -6,12 +6,16 @@ go:
 env:
   - GO_ENV=test
 
-
+services:
+  - mysql
 
 before_script:
   - mkdir -p $TRAVIS_BUILD_DIR/public/assets
 
 go_import_path: github.com/wbean1/apiwars
+
+before_install:
+  - mysql -e 'CREATE DATABASE apiwars_test;'
 
 install:
   - go get github.com/gobuffalo/buffalo/buffalo
