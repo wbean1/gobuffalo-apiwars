@@ -1,4 +1,16 @@
-currencies:
+# apiwars - a game of apis
+
+## overview
+apiwars is intended to provide the apis (and possibly some sample client code for invoking) making up a simple
+[Progress Quest-like](http://progressquest.com) playable game.  the idea is that players would develop their own
+clients, obeying the rules specified within the apis, and work to progress their characters up an infinite ladder
+of progress in an rpg-like game.
+
+## game definitions
+
+### how things happen
+`currencies`:
+```
 - gold:
     use: 
 	- buying items
@@ -13,8 +25,10 @@ currencies:
     - passive regen (based on avg team lvl)
     - resting (accelerated regen)
     - eating (using) food (instant regen)
+```
 
-items:
+`items`:
+```
 - chest (lvl)
     description: contains gold, other items
     actions: 
@@ -42,8 +56,10 @@ items:
     actions: 
 	- use_item
 	- sell_item
+```
 
-actions: 
+`actions`:
+``` 
 - explore_zone (CRUD of EXPLORATION entity)
     description: finds mobs, or dungeons, based on party avg lvl
 - fight_mob (CRUD of FIGHT entity)
@@ -60,12 +76,11 @@ actions:
     description: defines which characters make up the active party
 - equip_to_char (CRUD on CHARACTER entity)
     description: defines which equipment is active on a character
+```
 
-party -- array of 5 characters
-
-DATA DEFINITION:
-
+### data schemas
 `user`:
+```
 	description: |
 		the human player's construct with a corresponding userid & emailaddress.
         all currencies accumulated and actions performed are specific to a user.
@@ -74,16 +89,20 @@ DATA DEFINITION:
 	-	emailaddress
 	-	gold
 	-	energy
+```
 
 `inventory`:
+```
 	description: |
 		the human player's list of acquired equipment, characters, items
 	attributes:
 	-	user_id
 	-	type [equipment, character, item]
 	-	type_id
+```
 
 `character`:
+```
 	description: |
 		the virtual personas the player has recruited to be a part of the api-slaughtering
         team.  The player can arrange characters into a team and send the team into battle.
@@ -103,8 +122,10 @@ DATA DEFINITION:
 	-	def_base
 	-	hitpoints_base
 	-	armor_base
+```
 
 `party`:
+```
 	description: |
 		a collection of 5 characters that make up your active team.  each user
 		only has one party (current limitation), and it is the default party for
@@ -117,8 +138,10 @@ DATA DEFINITION:
 	-	char4_id
 	-	char5_id
 	-	status [active, resting]
+```
 
 `equipment`:
+```
 	description: |
 		the weapons, armor, and artifacts your characters equip to prepare theem for API
 		battle.  Equipment provide stat increases which are vitally important for progressing.
@@ -135,8 +158,10 @@ DATA DEFINITION:
 	-	tier [bronze, silver, gold, diamond] (how do you raise in tier?)
 	-	experience
 	-	experience_max
+```
 
-`zone`: |
+`zone`:
+```
 	description: |
 		the virtual areas the player has unlocked to explore and loot.
 	attributes:
@@ -146,8 +171,10 @@ DATA DEFINITION:
 	-	tier [bronze, silver, gold, diamond]
 	-	explores_max
 	-	explores_count
+```
 
-`enemy`: |
+`enemy`:
+```
 	description: |
 		the adversaries the player finds when exploring zones.  
 		the target of fights.
@@ -160,8 +187,9 @@ DATA DEFINITION:
 	-	crit
 	-	def
 	-	armor
+```
 
-
+```
 /* (NOT MVP)
 `quest`: |
 	description: |
@@ -181,9 +209,10 @@ DATA DEFINITION:
 	-	receive_type [item, equipment]
 	-	receive_id
 */
-	
+```
 
-`exploration`: |
+`exploration`:
+```
 	description: |
 		the event and outcome from a player sending a party to a zone to explore.
 	attributes:
@@ -192,8 +221,10 @@ DATA DEFINITION:
 	- party_id
 	- found_type [character, enemy, quest, zone]
 	- found_id
+```
 
-`fight`: |
+`fight`:
+```
 	description: |
 		the event and outcome from a player sending a party to encounter an enemy.
 	attributes:
@@ -204,9 +235,10 @@ DATA DEFINITION:
 	- found_type [item, equipment]
 	- found_id
 	- experience_gain
+```
 
-
-API DESIGN:
+### api design:
+```
 CREATE (POST)
 READ   (GET)
 UPDATE (PUT)
@@ -235,3 +267,4 @@ DELETE (DELETE)
 pseudo actions:
 /explorations/ - finds zones/enemys
 /fights/ - battles enemys
+```
