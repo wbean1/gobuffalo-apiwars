@@ -1,0 +1,8 @@
+create_table("explorations", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("user", "uuid", {})
+	t.Column("zone", "uuid", {})
+	t.Column("party", "uuid", {})
+	t.Column("found_type", "text", {})
+	t.Column("found_id", "uuid", {})
+})

@@ -1,7 +1,8 @@
 package actions
 
 import (
-        "fmt"
+	"fmt"
+
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/ssl"
@@ -62,15 +63,15 @@ func App() *buffalo.App {
 		auth.DELETE("", AuthDestroy)
 		auth.Middleware.Skip(Authorize, bah, AuthCallback)
 
-                app.GET("/protected", Protect)
+		app.GET("/protected", Protect)
 
 	}
 
 	return app
 }
 
-func Protect (c buffalo.Context) error {
-        m := fmt.Sprintf("super secret info here, userid: %s", c.Value("current_user"))
-        return c.Render(200, r.JSON(map[string]string{"message": m}))
+func Protect(c buffalo.Context) error {
+	m := fmt.Sprintf("super secret info here, userid: %s", c.Value("current_user"))
+	return c.Render(200, r.JSON(map[string]string{"message": m}))
 
 }

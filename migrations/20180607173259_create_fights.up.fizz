@@ -1,0 +1,10 @@
+create_table("fights", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("user", "uuid", {})
+	t.Column("enemy", "uuid", {})
+	t.Column("party", "uuid", {})
+	t.Column("result", "text", {})
+	t.Column("found_type", "text", {})
+	t.Column("found_id", "uuid", {})
+	t.Column("experience_adjustment", "integer", {})
+})

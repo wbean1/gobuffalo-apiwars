@@ -17,8 +17,8 @@ type User struct {
 	Email      string    `json:"email" db:"email"`
 	Provider   string    `json:"provider" db:"provider"`
 	ProviderID string    `json:"provider_id" db:"provider_id"`
-        Gold       int       `json:"gold" db:"gold"`
-        Energy     int       `json:"energy" db:"energy"`
+	Gold       int       `json:"gold" db:"gold"`
+	Energy     int       `json:"energy" db:"energy"`
 }
 
 // String is not required by pop and may be deleted

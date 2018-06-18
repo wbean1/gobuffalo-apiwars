@@ -1,0 +1,6 @@
+create_table("parties", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("user", "id", {})
+	t.Column("name", "text", {})
+	t.Column("status", "text", {})
+})

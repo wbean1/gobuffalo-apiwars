@@ -1,0 +1,10 @@
+create_table("zones", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("user", "uuid", {})
+	t.Column("name", "text", {})
+	t.Column("type", "text", {})
+	t.Column("level", "integer", {})
+	t.Column("tier", "text", {})
+	t.Column("explores_count", "integer", {})
+	t.Column("explores_max", "integer", {})
+})

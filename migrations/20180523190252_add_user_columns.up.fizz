@@ -1,2 +1,0 @@
-add_column("users", "gold", "integer", {"default": 1000})
-add_column("users", "energy", "integer", {"default": 50})

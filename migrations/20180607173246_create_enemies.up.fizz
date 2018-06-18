@@ -1,0 +1,13 @@
+create_table("enemies", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("user", "uuid", {})
+	t.Column("zone", "uuid", {})
+	t.Column("name", "text", {})
+	t.Column("type", "text", {})
+	t.Column("level", "integer", {})
+	t.Column("hp", "integer", {})
+	t.Column("atk", "integer", {})
+	t.Column("crit", "integer", {})
+	t.Column("def", "integer", {})
+	t.Column("armor", "integer", {})
+})
